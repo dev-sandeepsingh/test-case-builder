@@ -52,5 +52,4 @@ export class TestcaseComponent implements OnInit {
     pm.response.to.have.${this.testCaseBuilder.keyName}(${this.testCaseBuilder.expectedValue});
     });`;
   }
-
 }

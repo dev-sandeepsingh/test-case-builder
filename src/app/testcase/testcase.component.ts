@@ -21,21 +21,20 @@ export class TestcaseComponent implements OnInit {
     this.testCaseBuilderForm = this.formBuilder.group({
       'jsonDataText': [this.testCaseBuilder.jsonDataText],
       'keyName': [this.testCaseBuilder.keyName],
+      'expectedValue': [this.testCaseBuilder.expectedValue],
+      'testCaseData': [this.testCaseBuilder.testCaseData],
+      'testCaseHeading':[this.testCaseBuilder.testCaseHeading],
     })
   }
 
 
   onBlurMethod(e) {
-
-    debugger;
-    
-    this.keys = this.getKeys({jsonData :this.testCaseBuilder.jsonDataText});
-
+    this.keys = this.getKeys({ jsonData: this.testCaseBuilder.jsonDataText });
   }
 
   getKeys({ jsonData }) {
     jsonData = JSON.parse(jsonData);
-    
+
     for (var obj in jsonData) {
       if (jsonData.hasOwnProperty(obj)) {
         for (var prop in jsonData[obj]) {
@@ -48,13 +47,10 @@ export class TestcaseComponent implements OnInit {
     return this.items;
   }
 
-  generateTestCase(){
-    debugger;
-    alert( `Key neme is ${this.testCaseBuilder.keyName}`);
-    alert(`pm.test("Status code is 200", function () {
-      pm.response.to.have.status(200);
-  });`)
-    
+  generateTestCase() {
+    this.testCaseBuilder.testCaseData = `pm.test("${this.testCaseBuilder.testCaseHeading}", function () {
+    pm.response.to.have.${this.testCaseBuilder.keyName}(${this.testCaseBuilder.expectedValue});
+    });`;
   }
 
 }

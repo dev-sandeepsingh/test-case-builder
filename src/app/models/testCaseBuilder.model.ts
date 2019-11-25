@@ -3,4 +3,6 @@ export class TestCaseBuilderModel {
     keyName: String;
     operator:String;
     expectedValue:String;
+    testCaseData: String;
+    testCaseHeading:String;
 }

@@ -8,6 +8,8 @@
 
   <select class="browser-default custom-select mb-4" formControlName="keyName" [(ngModel)]="testCaseBuilder.keyName">
     <option value="" disabled>Choose key</option>
+    <option>status</option>
+
     <option *ngFor="let key of keys; let i = index">
       {{keys[i]}}
     </option>
@@ -20,10 +22,15 @@
     <option value="">Equals</option>
     <option value="">Not Equals</option>
   </select>
+  <input class="form-control mb-4" placeholder="Test case heading" class="form-control" id="testCaseHeading"
+  formControlName="testCaseHeading" [(ngModel)]="testCaseBuilder.testCaseHeading">
   <input class="form-control mb-4" placeholder="Expected value" class="form-control" id="expectedValue"
     formControlName="expectedValue" [(ngModel)]="testCaseBuilder.expectedValue">
 
-    <div class="row">
-        <button mdbBtn type="submit" [disabled]="!testCaseBuilderForm.valid">Generate test case</button>
+    <div class="row" style="padding: 15px;">
+        <button mdbBtn class="btn btn-primary pull-right" type="submit" color="primary" mdbWavesEffect [disabled]="!testCaseBuilderForm.valid">Generate test case</button>        
       </div>  
+
+      <textarea class="form-control mb-4" id="testCaseData" formControlName="testCaseData"
+      [(ngModel)]="testCaseBuilder.testCaseData" rows=5 disabled></textarea>
 </form>

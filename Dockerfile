@@ -20,8 +20,8 @@ RUN npm install -g @angular/cli@7.3.9
 # add app
 COPY . /app
 
-EXPOSE 8080
+EXPOSE 80
 
 #CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0", "-p", "8080"]
 # start app
-CMD ng serve --host 0.0.0.0 --port 8080
+CMD ng serve --host 0.0.0.0 --port 80

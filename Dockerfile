@@ -1,27 +1,20 @@
-# base image
-FROM node:12.2.0
+# Use the official lightweight Node.js 12 image.
+# https://hub.docker.com/_/node
+FROM node:12-slim
 
-# install chrome for protractor tests
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-RUN apt-get update && apt-get install -yq google-chrome-stable
+# Create and change to the app directory.
+WORKDIR /usr/src/app
 
-# set working directory
-WORKDIR /app
+# Copy application dependency manifests to the container image.
+# A wildcard is used to ensure both package.json AND package-lock.json are copied.
+# Copying this separately prevents re-running npm install on every code change.
+COPY package*.json ./
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+# Install production dependencies.
+RUN npm install --only=production
 
-# install and cache app dependencies
-COPY package.json /app/package.json
-RUN npm install
-RUN npm install -g @angular/cli@7.3.9
+# Copy local code to the container image.
+COPY . ./
 
-# add app
-COPY . /app
-
-EXPOSE 80
-
-#CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0", "-p", "8080"]
-# start app
-CMD ng serve --host 0.0.0.0 --port 80
+# Run the web service on container startup.
+CMD [ "npm", "start" ]

@@ -23,7 +23,5 @@ steps:
         "--memory",
         "128Mi"
       ]
-    env:
-    - 'PORT=8080'
 images:
   - gcr.io/test-case-builder/test-case-builder

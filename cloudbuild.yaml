@@ -1,10 +1,10 @@
 steps:
   # build the container image
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/$PROJECT_ID/test-case-builder", "."]
+    args: ["build", "-t", "gcr.io/test-case-builder/test-case-builder", "."]
     # push the container image to Container Registry
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/$PROJECT_ID/test-case-builder"]
+    args: ["push", "gcr.io/test-case-builder/test-case-builder"]
     # Deploy container image to Cloud Run
   - name: "gcr.io/cloud-builders/gcloud"
     args:
@@ -15,7 +15,7 @@ steps:
         "--allow-unauthenticated",
         "test-case-builder",
         "--image",
-        "gcr.io/$PROJECT_ID/test-case-builder",
+        "gcr.io/test-case-builder/test-case-builder",
         "--region",
         "us-central1",
         "--platform",
@@ -26,4 +26,4 @@ steps:
     env:
     - 'PORT=8080'
 images:
-  - gcr.io/$PROJECT_ID/test-case-builder
+  - gcr.io/test-case-builder/test-case-builder

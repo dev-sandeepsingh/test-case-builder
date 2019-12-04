@@ -1,0 +1,30 @@
+<form >
+    <table>
+        <tr>
+            <td>
+                Json Response: 
+            </td>
+            <td>
+                <textarea class="form-control mb-4" placeholder="Json response" id="jsonDataText"
+                    formControlName="jsonDataText" (blur)="onBlurMethod()"
+                    rows=5></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                    keyName:
+            </td>
+            <td>
+                    <select class="browser-default custom-select mb-4" formControlName="keyName">
+                            <option value="" >Choose key</option>
+                            <option>status</option>
+                        
+                            <option *ngFor="let key of keys; let i = index">
+                              {{keys[i]}}
+                            </option>
+                          </select>
+            </td>
+        </tr>
+        
+    </table>
+</form>

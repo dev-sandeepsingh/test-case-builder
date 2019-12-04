@@ -12,4 +12,6 @@ RUN npm run build --prod
 
 FROM nginx:alpine
 
+EXPOSE 8080
+
 COPY --from=node /app/dist/test-case-builder usr/share/nginx/html

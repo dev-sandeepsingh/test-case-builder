@@ -12,9 +12,8 @@ RUN npm run build --prod
 
 FROM nginx:alpine
 
-EXPOSE 8080
-
 COPY --from=node /app/dist/test-case-builder usr/share/nginx/html
 
+EXPOSE 80
 # Run the web service on container startup.
-CMD [ "ng", "serve" ]
+CMD ng serve --host 0.0.0.0 --port 80

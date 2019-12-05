@@ -1,7 +1,7 @@
 ### STAGE 1: Build ###
 
 # We label our stage as ‘builder’
-FROM node:12.0.0 as builder
+FROM node:latest as builder
 
 #Cleanup
 RUN npm cache clean --force
@@ -35,13 +35,13 @@ RUN $(npm bin)/ng build --prod
 ### STAGE 2: Setup ###
 
 # base image
-FROM nginx:1.13.9-alpine
+FROM nginx:alpine
 
 # copy artifact build from the 'build environment'
 COPY --from=builder /ng-app/dist /usr/share/nginx/html
 
 # expose port 80
-EXPOSE 80
+EXPOSE 8080
 
 # run nginx
 CMD ["nginx", "-g", "daemon off;"]

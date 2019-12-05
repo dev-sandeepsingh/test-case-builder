@@ -14,6 +14,6 @@ FROM nginx:alpine
 
 COPY --from=node /app/dist/test-case-builder usr/share/nginx/html
 
-EXPOSE 8080
+EXPOSE 80
 # Run the web service on container startup.
-CMD ng serve --host 0.0.0.0
+CMD ng serve --host 0.0.0.0 80

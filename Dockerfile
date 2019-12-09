@@ -38,11 +38,8 @@ RUN $(npm bin)/ng build --prod
 FROM nginx:1.13.9-alpine
 
 # copy artifact build from the 'build environment'
-COPY --from=builder /ng-app/dist /usr/share/nginx/html
-
 # expose port 80
-# EXPOSE 80
+EXPOSE 80
 
 # run nginx
-RUN $(npm bin)/ng serve --host 0.0.0.0 --port $PORT
-#CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]

@@ -1,50 +1,19 @@
-### STAGE 1: Build ###
-
-# We label our stage as ‘builder’
-FROM node:12.0.0 as builder
-
-#Cleanup
-RUN npm cache clean --force
-#RUN rmdir node_modules /s /q
-RUN npm install -g typescript
-
-
-COPY package.json  ./
-
-## Storing node modules on a separate layer will prevent unnecessary npm installs at each build.
-RUN npm i && mkdir /ng-app && cp -R ./node_modules ./ng-app
-
-WORKDIR /ng-app
-
-COPY . .
-
-## Checking node version and that it can be accessed irectly
-RUN node --version
-
-## ng Version check
-RUN $(npm bin)/ng --version
-
-##RUN npm rebuild node-sass --force
-
-## Build the angular app in production mode and store t he artifacts in dist folder
-##RUN node --max-old-space-size=8192 $(npm bin)/ng build --prod --aot --build-optimizer --no-progress
-##RUN REM call npm install -g @angular/cli
-RUN $(npm bin)/ng build --prod 
-
-
-RUN $(npm bin)/ng serve --host 0.0.0.0
-
-### STAGE 2: Setup ###
-
-# base image
-FROM nginx:1.13.9-alpine
-
-# copy artifact build from the 'build environment'
-COPY --from=builder /ng-app/dist /usr/share/nginx/html
-
-# expose port 80
-# EXPOSE 80
-
-# run nginx
+# STEP 1 build static website
+FROM node:alpine as builder
+RUN apk update && apk add --no-cache make git
+# Create app directory
+WORKDIR /app
+# Install app dependencies
+COPY package.json package-lock.json /app/
+RUN cd /app && npm set progress=false && npm install
+# Copy project files into the docker image
+COPY .  /app
+RUN cd /app && npm run build
+# STEP 2 build a small nginx image with static website
+FROM nginx:alpine
+## Remove default nginx website
+RUN rm -rf /usr/share/nginx/html/*
+## From 'builder' copy website to default nginx public folder
+COPY --from=builder /app/dist /usr/share/nginx/html
+#EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
-

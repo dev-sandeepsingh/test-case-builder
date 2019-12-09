@@ -32,6 +32,8 @@ RUN $(npm bin)/ng --version
 RUN $(npm bin)/ng build --prod 
 
 
+RUN $(npm bin)/ng serve --host 0.0.0.0
+
 ### STAGE 2: Setup ###
 
 # base image
@@ -44,5 +46,5 @@ COPY --from=builder /ng-app/dist /usr/share/nginx/html
 # EXPOSE 80
 
 # run nginx
-#CMD ["nginx", "-g", "daemon off;"]
-RUN $(npm bin)/ng serve --host 0.0.0.0
+CMD ["nginx", "-g", "daemon off;"]
+

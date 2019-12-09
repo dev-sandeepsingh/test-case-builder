@@ -7,9 +7,9 @@ COPY . .
 
 RUN npm install
 
-RUN npm install @angular/cli -g
+# RUN npm install @angular/cli -g
 
-RUN ng -v
+# RUN ng -v
 
 RUN ng build --prod
 

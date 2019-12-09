@@ -9,7 +9,7 @@ RUN npm install
 
 RUN npm install @angular/cli -g
 
-"/Users/reinos/.npm/lib/node_modules/angular-cli/bin/ng" as ng
+alias ng="/Users/reinos/.npm/lib/node_modules/angular-cli/bin/ng"
 
 RUN cd /app/ && ng build --prod
 

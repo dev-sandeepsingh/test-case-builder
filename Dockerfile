@@ -9,6 +9,8 @@ RUN npm install
 
 RUN npm install @angular/cli -g
 
+"/Users/reinos/.npm/lib/node_modules/angular-cli/bin/ng" as ng
+
 RUN cd /app/ && ng build --prod
 
 FROM nginx:alpine

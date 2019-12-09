@@ -8,47 +8,48 @@ import { TestCaseBuilderModel } from '../models/testCaseBuilder.model'
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+
 export class HomeComponent implements OnInit {
   testCaseBuilder: TestCaseBuilderModel = new TestCaseBuilderModel();
   testCaseBuilderForm: FormGroup;
   items: any = [];
   keys;
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    // this.testCaseBuilderForm = this.formBuilder.group({
-    //   'jsonDataText': [this.testCaseBuilder.jsonDataText],
-    //   'keyName': [this.testCaseBuilder.keyName],
-    //   'expectedValue': [this.testCaseBuilder.expectedValue],
-    //   'testCaseData': [this.testCaseBuilder.testCaseData],
-    //   'testCaseHeading':[this.testCaseBuilder.testCaseHeading],
-    // })
+    this.testCaseBuilderForm = this.formBuilder.group({
+      'jsonDataText': [this.testCaseBuilder.jsonDataText],
+      'keyName': [this.testCaseBuilder.keyName],
+      'expectedValue': [this.testCaseBuilder.expectedValue],
+      'testCaseData': [this.testCaseBuilder.testCaseData],
+      'testCaseHeading':[this.testCaseBuilder.testCaseHeading],
+    })
   }
 
-  // onBlurMethod(e) {
-  //   this.keys = this.getKeys({ jsonData: this.testCaseBuilder.jsonDataText });
-  // }
+  onBlurMethod(e) {
+    this.keys = this.getKeys({ jsonData: this.testCaseBuilder.jsonDataText });
+  }
 
-  // getKeys({ jsonData }) {
-  //   jsonData = JSON.parse(jsonData);
+  getKeys({ jsonData }) {
+    jsonData = JSON.parse(jsonData);
 
-  //   for (var obj in jsonData) {
-  //     if (jsonData.hasOwnProperty(obj)) {
-  //       for (var prop in jsonData[obj]) {
-  //         if (jsonData[obj].hasOwnProperty(prop)) {
-  //           this.items.push(prop);
-  //         }
-  //       }
-  //     }
-  //   }
-  //   return this.items;
-  // }
+    for (var obj in jsonData) {
+      if (jsonData.hasOwnProperty(obj)) {
+        for (var prop in jsonData[obj]) {
+          if (jsonData[obj].hasOwnProperty(prop)) {
+            this.items.push(prop);
+          }
+        }
+      }
+    }
+    return this.items;
+  }
 
-  // generateTestCase() {
-  //   this.testCaseBuilder.testCaseData = `pm.test("${this.testCaseBuilder.testCaseHeading}", function () {
-  //   pm.response.to.have.${this.testCaseBuilder.keyName}(${this.testCaseBuilder.expectedValue});
-  //   });`;
-  // }
+  generateTestCase() {
+    this.testCaseBuilder.testCaseData = `pm.test("${this.testCaseBuilder.testCaseHeading}", function () {
+    pm.response.to.have.${this.testCaseBuilder.keyName}(${this.testCaseBuilder.expectedValue});
+    });`;
+  }
 
 }

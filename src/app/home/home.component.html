@@ -1,30 +1,83 @@
-<form >
+<form class="border border-light p-5 col-md-10" [formGroup]="testCaseBuilderForm" (ngSubmit)="generateTestCase()">
+
     <table>
         <tr>
             <td>
-                Json Response: 
+                <label>Test case builder</label>
             </td>
             <td>
                 <textarea class="form-control mb-4" placeholder="Json response" id="jsonDataText"
-                    formControlName="jsonDataText"
+                    formControlName="jsonDataText" [(ngModel)]="testCaseBuilder.jsonDataText" (blur)="onBlurMethod()"
                     rows=5></textarea>
+
             </td>
         </tr>
         <tr>
             <td>
-                    keyName:
+                <label>keyName</label>
             </td>
             <td>
-                    <select class="browser-default custom-select mb-4" formControlName="keyName">
-                            <option value="" >Choose key</option>
-                            <option>status</option>
-                        
-                            <option *ngFor="let key of keys; let i = index">
-                              {{keys[i]}}
-                            </option>
-                          </select>
+                <select class="browser-default custom-select mb-4" formControlName="keyName"
+                    [(ngModel)]="testCaseBuilder.keyName">
+                    <option value="">Choose key</option>
+                    <option>status</option>
+                    <option *ngFor="let key of keys; let i = index">
+                        {{keys[i]}}
+                    </option>
+                </select>
+
             </td>
         </tr>
-        
+        <tr>
+            <td>
+                <label>Operator</label>
+            </td>
+            <td>
+                <select class="browser-default custom-select mb-4" formControlName="operator"
+                    [(ngModel)]="testCaseBuilder.operator">
+                    <option value="" disabled>Choose operator</option>
+                    <option value="">Equals</option>
+                    <option value="">Not Equals</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Test case heading</label>
+            </td>
+            <td>
+                <input class="form-control mb-4" placeholder="Test case heading" class="form-control"
+                    id="testCaseHeading" formControlName="testCaseHeading"
+                    [(ngModel)]="testCaseBuilder.testCaseHeading">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Expected value</label>
+            </td>
+            <td>
+                <input class="form-control mb-4" placeholder="Expected value" class="form-control" id="expectedValue"
+                    formControlName="expectedValue" [(ngModel)]="testCaseBuilder.expectedValue">
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+            </td>
+            <td>
+                <div class="row" style="padding: 15px;">
+                    <button mdbBtn class="btn btn-primary pull-right" type="submit" color="primary" mdbWavesEffect
+                        [disabled]="!testCaseBuilderForm.valid">Generate test case</button>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <textarea class="form-control mb-4" id="testCaseData" formControlName="testCaseData"
+                    [(ngModel)]="testCaseBuilder.testCaseData" style="width: 100%;" rows=10 readonly ></textarea>
+            </td>
+        </tr>
+
     </table>
+    <p class="h4 mb-4"></p>
 </form>

@@ -11,7 +11,7 @@ RUN npm install @angular/cli -g
 
 RUN ng -v
 
-RUN cd /app/ && ng build --prod
+RUN ng build --prod
 
 FROM nginx:alpine
 

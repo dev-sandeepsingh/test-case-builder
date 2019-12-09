@@ -38,6 +38,8 @@ RUN $(npm bin)/ng build --prod
 FROM nginx:1.13.9-alpine
 
 # copy artifact build from the 'build environment'
+COPY --from=builder /ng-app/dist /usr/share/nginx/html
+
 # expose port 80
 EXPOSE 80
 

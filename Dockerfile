@@ -45,4 +45,4 @@ COPY --from=builder /ng-app/dist /usr/share/nginx/html
 
 # run nginx
 #CMD ["nginx", "-g", "daemon off;"]
-CMD $(npm bin)/ng serve --host 0.0.0.0
+RUN $(npm bin)/ng serve --host 0.0.0.0

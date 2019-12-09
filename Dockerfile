@@ -44,5 +44,5 @@ COPY --from=builder /ng-app/dist /usr/share/nginx/html
 # EXPOSE 80
 
 # run nginx
-CMD $(npm bin)/ng serve --host 0.0.0.0 --port $PORT
+RUN $(npm bin)/ng serve --host 0.0.0.0 --port $PORT
 #CMD ["nginx", "-g", "daemon off;"]

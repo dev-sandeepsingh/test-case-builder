@@ -1,7 +1,7 @@
 # base image
 FROM node:latest as node
 # set working directory
-WORKDIR /app/
+WORKDIR /app
 
 COPY . .
 
@@ -9,7 +9,7 @@ RUN npm install
 
 RUN npm install @angular/cli -g
 
-RUN ng build --prod
+RUN cd /app/ && ng build --prod
 
 FROM nginx:alpine
 

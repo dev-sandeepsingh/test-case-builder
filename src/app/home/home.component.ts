@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  onBlurMethod(e) {
+  onBlurMethod() {
     this.keys = this.getKeys({ jsonData: this.testCaseBuilder.jsonDataText });
   }
 

@@ -7,8 +7,7 @@
             </td>
             <td>
                 <textarea class="form-control mb-4" placeholder="Json response" id="jsonDataText"
-                    formControlName="jsonDataText" (blur)="onBlurMethod()"
-                    rows=5></textarea>
+                    formControlName="jsonDataText" [(ngModel)]="testCaseBuilder.jsonDataText" rows=5></textarea>
 
             </td>
         </tr>

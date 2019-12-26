@@ -19,7 +19,7 @@
                 <select class="browser-default custom-select mb-4" formControlName="keyName"
                     [(ngModel)]="testCaseBuilder.keyName">
                     <option value="">Choose key</option>
-                    <option>status</option>
+                    <!-- <option>status</option> -->
                     <option *ngFor="let key of keys; let i = index">
                         {{keys[i]}}
                     </option>

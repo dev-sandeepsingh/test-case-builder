@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
       'expectedValue': [this.testCaseBuilder.expectedValue],
       'testCaseData': [this.testCaseBuilder.testCaseData],
       'testCaseHeading':[this.testCaseBuilder.testCaseHeading],
+      'operator':[this.testCaseBuilder.operator]
     })
   }
 
@@ -34,16 +35,18 @@ export class HomeComponent implements OnInit {
   getKeys({ jsonData }) {
     jsonData = JSON.parse(jsonData);
 
-    for (var obj in jsonData) {
-      if (jsonData.hasOwnProperty(obj)) {
-        for (var prop in jsonData[obj]) {
-          if (jsonData[obj].hasOwnProperty(prop)) {
-            this.items.push(prop);
-          }
-        }
-      }
-    }
-    return this.items;
+    return Object.keys(jsonData);
+
+    // for (var obj in jsonData) {
+    //   if (jsonData.hasOwnProperty(obj)) {
+    //     for (var prop in jsonData[obj]) {
+    //       if (jsonData[obj].hasOwnProperty(prop)) {
+    //         this.items.push(prop);
+    //       }
+    //     }
+    //   }
+    // }
+    //return this.items;
   }
 
   generateTestCase() {

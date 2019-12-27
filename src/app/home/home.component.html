@@ -1,13 +1,13 @@
 <form class="border border-light p-5 col-md-10" [formGroup]="testCaseBuilderForm" (ngSubmit)="generateTestCase()">
 
-    <table>
+    <table id="testCaseBuilderTable" style="width: 70%;">
         <tr>
-            <td>
+            <td class="tdHeading">
                 <label>Test case builder</label>
             </td>
-            <td>
-                <textarea class="form-control mb-4" placeholder="Json response" id="jsonDataText"
-                    formControlName="jsonDataText" [(ngModel)]="testCaseBuilder.jsonDataText" (blur)="onBlurMethod()"  rows=5></textarea>
+            <td class="tdContent">
+                <textarea class="form-control mb-4 controlsWidth" placeholder="Json response" id="jsonDataText"
+                    formControlName="jsonDataText" [(ngModel)]="testCaseBuilder.jsonDataText" (blur)="onBlurMethod()"  rows=10></textarea>
 
             </td>
         </tr>
@@ -16,12 +16,12 @@
                 <label>keyName</label>
             </td>
             <td>
-                <select class="browser-default custom-select mb-4" formControlName="keyName"
+                <select class="browser-default custom-select mb-4 controlsWidth" formControlName="keyName"
                     [(ngModel)]="testCaseBuilder.keyName">
                     <option value="">Choose key</option>
-                    <!-- <option>status</option> -->
+                    <option>status</option>
                     <option *ngFor="let key of keys; let i = index">
-                        {{keys[i]}}
+                        {{keys[i].text}}
                     </option>
                 </select>
 
@@ -32,7 +32,7 @@
                 <label>Operator</label>
             </td>
             <td>
-                <select class="browser-default custom-select mb-4" formControlName="operator"
+                <select class="browser-default custom-select mb-4 controlsWidth" formControlName="operator"
                     [(ngModel)]="testCaseBuilder.operator">
                     <option value="" disabled>Choose operator</option>
                     <option value="">Equals</option>
@@ -45,7 +45,7 @@
                 <label>Test case heading</label>
             </td>
             <td>
-                <input class="form-control mb-4" placeholder="Test case heading" class="form-control"
+                <input class="form-control mb-4 controlsWidth" placeholder="Test case heading" class="form-control"
                     id="testCaseHeading" formControlName="testCaseHeading"
                     [(ngModel)]="testCaseBuilder.testCaseHeading">
             </td>
@@ -55,7 +55,7 @@
                 <label>Expected value</label>
             </td>
             <td>
-                <input class="form-control mb-4" placeholder="Expected value" class="form-control" id="expectedValue"
+                <input class="form-control mb-4 controlsWidth" placeholder="Expected value" class="form-control" id="expectedValue"
                     formControlName="expectedValue" [(ngModel)]="testCaseBuilder.expectedValue">
             </td>
         </tr>

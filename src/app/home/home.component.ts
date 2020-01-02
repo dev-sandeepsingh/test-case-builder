@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   testCaseBuilderForm: FormGroup;
   items: any = [];
   keys;
-  object: any = [];
+  jsonKeys: any = [];
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -34,29 +34,30 @@ export class HomeComponent implements OnInit {
   }
 
   getKeys({ jsonData }) {
-    
+
     jsonData = JSON.parse(jsonData);
-    this.object = [];
+    this.jsonKeys = [];
 
     for (var obj in jsonData) {
       if (jsonData.hasOwnProperty(obj)) {
-        this.object.push({ text: obj, value: obj })
+        this.jsonKeys.push({ text: obj, value: obj })
         if (!(typeof jsonData[obj] === 'string' || jsonData[obj] instanceof String)) {
           for (var prop in jsonData[obj]) {
             if (jsonData[obj].hasOwnProperty(prop)) {
-              this.object.push({ text: `${obj} --> ${prop}`, value: `${obj}.${prop}` });
+              this.jsonKeys.push({ text: `${obj} --> ${prop}`, value: `${obj}.${prop}` });
             }
           }
         }
       }
     }
-    return this.object;
+    return this.jsonKeys;
   }
 
   generateTestCase() {
+    const testBody = this.testCaseBuilder.keyName === 'status' ? `pm.response.to.have.${this.testCaseBuilder.keyName}(${this.testCaseBuilder.expectedValue});` : `pm.expect(pm.response.json().${this.keys.find( ({ text}) => text === this.testCaseBuilder.keyName ).value}).to.eql(${this.testCaseBuilder.expectedValue});`
+
     this.testCaseBuilder.testCaseData = `pm.test("${this.testCaseBuilder.testCaseHeading}", function () {
-    pm.response.to.have.${this.testCaseBuilder.keyName}(${this.testCaseBuilder.expectedValue});
+    ${testBody}
     });`;
   }
-
 }

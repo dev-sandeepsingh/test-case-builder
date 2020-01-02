@@ -54,7 +54,9 @@ export class HomeComponent implements OnInit {
   }
 
   generateTestCase() {
-    const testBody = this.testCaseBuilder.keyName === 'status' ? `pm.response.to.have.${this.testCaseBuilder.keyName}(${this.testCaseBuilder.expectedValue});` : `pm.expect(pm.response.json().${this.keys.find( ({ text}) => text === this.testCaseBuilder.keyName ).value}).to.eql(${this.testCaseBuilder.expectedValue});`
+  
+    const expectedValue = typeof  this.testCaseBuilder.expectedValue === 'string' ? `'${this.testCaseBuilder.expectedValue}'` : this.testCaseBuilder.expectedValue;
+    const testBody = this.testCaseBuilder.keyName === 'status' ? `pm.response.to.have.${this.testCaseBuilder.keyName}(${expectedValue});` : `pm.expect(pm.response.json().${this.keys.find( ({ text}) => text === this.testCaseBuilder.keyName ).value}).to.eql(${expectedValue});`
 
     this.testCaseBuilder.testCaseData = `pm.test("${this.testCaseBuilder.testCaseHeading}", function () {
     ${testBody}
